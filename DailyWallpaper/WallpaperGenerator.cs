@@ -110,7 +110,7 @@ namespace DailyWallpaper
             }
             else
             {
-                textItem = null;
+                textItem = new TextItem("<无文本项目可用>", "请前往文本选项卡添加文本项目", "", false);
             }
 
             index = 0;
@@ -237,7 +237,7 @@ namespace DailyWallpaper
 
         private void DrawBackground(Size size)
         {
-            if(config.BackgroundSelection == BackgroundMode.Solid)
+            if(config.BackgroundSelection == BackgroundMode.Solid || imageItem == null)
             {
                 g.Clear(config.BackgroundColor);
             }

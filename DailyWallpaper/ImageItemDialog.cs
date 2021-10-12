@@ -114,8 +114,7 @@ namespace DailyWallpaper
 
         private void ImageItemDialog_FormClosed(object sender, FormClosedEventArgs e)
         {
-            imagePreview.Image.Dispose();
-            imagePreview.Image = null;
+            if(imagePreview != null && imagePreview.Image != null) imagePreview.Image.Dispose();
         }
     }
 }

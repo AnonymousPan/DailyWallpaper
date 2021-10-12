@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using TaskScheduler;
 
 namespace DailyWallpaper
@@ -601,7 +602,7 @@ namespace DailyWallpaper
                 }
                 catch (Exception err)
                 {
-                    MessageBox.Show("执行安装时出错(请尝试使用管理员身份执行此程序)\n" + err.ToString(), "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("执行安装时出错(请尝试使用管理员身份执行此程序或安装为开机启动)\n" + err.ToString(), "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -610,11 +611,13 @@ namespace DailyWallpaper
         {
             try
             {
+                // Uninstall from TaskScheduler
                 TaskSchedulerClass ts = new TaskSchedulerClass();
                 ts.Connect();
                 ITaskFolder folder = ts.GetFolder("\\");
 
                 bool exists = false;
+                bool uninstalled = false;
                 IRegisteredTaskCollection list = folder.GetTasks(0);
                 foreach (IRegisteredTask t in list)
                 {
@@ -627,6 +630,23 @@ namespace DailyWallpaper
                 if (exists)
                 {
                     folder.DeleteTask("DailyWallpaper", 0);
+                    uninstalled = true;
+                }
+
+                if(!exists)
+                {
+                    // Uninstall startup in registry
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    if(key.GetValue("DailyWallpaper") != null)
+                    {
+                        key.DeleteValue("DailyWallpaper");
+                        uninstalled = true;
+                    }
+                    key.Close();
+                }
+
+                if(uninstalled)
+                {
                     MessageBox.Show("卸载成功", "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -650,6 +670,43 @@ namespace DailyWallpaper
                 changed = false;
                 MessageBox.Show("配置已重置", "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void btnInstall2_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("请将程序放在一个固定的位置后再进行安装，是否继续？\n"
+                + "推荐优先使用任务计划程序，使用开机启动安装将造成壁纸更新延迟。", "每日壁纸", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                try
+                {
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                    key.SetValue("DailyWallpaper", "\"" + Application.ExecutablePath + "\" -a");
+                    key.Close();
+                    MessageBox.Show("安装成功\n", "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("执行安装时出错(请尝试使用管理员身份执行此程序)\n" + err.ToString(), "每日壁纸", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void btnForceUpdate_Click(object sender, EventArgs e)
+        {
+            Process.Start(Application.ExecutablePath, "-f");
+        }
+
+        private void btnClearLastWallpaperInfo_Click(object sender, EventArgs e)
+        {
+            Program.LastWallpaper.Time = 0;
+            Program.LastWallpaper.TextIndex = 0;
+            Program.LastWallpaper.ImageIndex = 0;
+            Program.LastWallpaper.ToXml("LastWallpaper.xml");
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(((LinkLabel)sender).Text.Substring(e.Link.Start, e.Link.Length));
         }
     }
 }

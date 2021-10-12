@@ -35,6 +35,9 @@ namespace DailyWallpaper
             this.btnPreview = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageHome = new System.Windows.Forms.TabPage();
+            this.btnClearLastWallpaperInfo = new System.Windows.Forms.Button();
+            this.btnForceUpdate = new System.Windows.Forms.Button();
+            this.btnInstall2 = new System.Windows.Forms.Button();
             this.btnDateFormat = new System.Windows.Forms.Button();
             this.btnDateFont = new System.Windows.Forms.Button();
             this.textCenterPos = new System.Windows.Forms.CheckBox();
@@ -90,13 +93,13 @@ namespace DailyWallpaper
             this.label7 = new System.Windows.Forms.Label();
             this.backgroundSelectionMode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.tabPageAbout = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnApply = new System.Windows.Forms.Button();
             this.importTextDialog = new System.Windows.Forms.OpenFileDialog();
             this.exportTextDialog = new System.Windows.Forms.SaveFileDialog();
             this.backgroundColor = new System.Windows.Forms.ColorDialog();
-            this.tabPageAbout = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.tabPageHome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textY)).BeginInit();
@@ -153,6 +156,9 @@ namespace DailyWallpaper
             // 
             // tabPageHome
             // 
+            this.tabPageHome.Controls.Add(this.btnClearLastWallpaperInfo);
+            this.tabPageHome.Controls.Add(this.btnForceUpdate);
+            this.tabPageHome.Controls.Add(this.btnInstall2);
             this.tabPageHome.Controls.Add(this.btnDateFormat);
             this.tabPageHome.Controls.Add(this.btnDateFont);
             this.tabPageHome.Controls.Add(this.textCenterPos);
@@ -182,6 +188,36 @@ namespace DailyWallpaper
             this.tabPageHome.TabIndex = 0;
             this.tabPageHome.Text = "主页";
             this.tabPageHome.UseVisualStyleBackColor = true;
+            // 
+            // btnClearLastWallpaperInfo
+            // 
+            this.btnClearLastWallpaperInfo.Location = new System.Drawing.Point(331, 284);
+            this.btnClearLastWallpaperInfo.Name = "btnClearLastWallpaperInfo";
+            this.btnClearLastWallpaperInfo.Size = new System.Drawing.Size(150, 23);
+            this.btnClearLastWallpaperInfo.TabIndex = 26;
+            this.btnClearLastWallpaperInfo.Text = "清除上一次的壁纸信息";
+            this.btnClearLastWallpaperInfo.UseVisualStyleBackColor = true;
+            this.btnClearLastWallpaperInfo.Click += new System.EventHandler(this.btnClearLastWallpaperInfo_Click);
+            // 
+            // btnForceUpdate
+            // 
+            this.btnForceUpdate.Location = new System.Drawing.Point(331, 313);
+            this.btnForceUpdate.Name = "btnForceUpdate";
+            this.btnForceUpdate.Size = new System.Drawing.Size(150, 23);
+            this.btnForceUpdate.TabIndex = 25;
+            this.btnForceUpdate.Text = "强制更新壁纸";
+            this.btnForceUpdate.UseVisualStyleBackColor = true;
+            this.btnForceUpdate.Click += new System.EventHandler(this.btnForceUpdate_Click);
+            // 
+            // btnInstall2
+            // 
+            this.btnInstall2.Location = new System.Drawing.Point(331, 342);
+            this.btnInstall2.Name = "btnInstall2";
+            this.btnInstall2.Size = new System.Drawing.Size(150, 23);
+            this.btnInstall2.TabIndex = 24;
+            this.btnInstall2.Text = "安装为开机启动";
+            this.btnInstall2.UseVisualStyleBackColor = true;
+            this.btnInstall2.Click += new System.EventHandler(this.btnInstall2_Click);
             // 
             // btnDateFormat
             // 
@@ -728,6 +764,42 @@ namespace DailyWallpaper
             this.label6.TabIndex = 0;
             this.label6.Text = "选择方式";
             // 
+            // tabPageAbout
+            // 
+            this.tabPageAbout.Controls.Add(this.linkLabel1);
+            this.tabPageAbout.Controls.Add(this.label10);
+            this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAbout.Name = "tabPageAbout";
+            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAbout.Size = new System.Drawing.Size(568, 371);
+            this.tabPageAbout.TabIndex = 3;
+            this.tabPageAbout.Text = "关于";
+            this.tabPageAbout.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("宋体", 12F);
+            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(8, 46);
+            this.linkLabel1.Location = new System.Drawing.Point(23, 105);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(451, 24);
+            this.linkLabel1.TabIndex = 1;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Github: https://github.com/AnonymousPan/DailyWallpaper";
+            this.linkLabel1.UseCompatibleTextRendering = true;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 12F);
+            this.label10.Location = new System.Drawing.Point(20, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(248, 64);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "关于 每日壁纸\r\n版本: V1.0.1\r\n作者: 潘某人-AnonymousPan\r\nE-mail: pansichen666@gmail.com";
+            // 
             // btnApply
             // 
             this.btnApply.Location = new System.Drawing.Point(347, 415);
@@ -749,41 +821,6 @@ namespace DailyWallpaper
             this.exportTextDialog.DefaultExt = "xml";
             this.exportTextDialog.Filter = "XML文档|*.xml";
             this.exportTextDialog.Title = "导出文本";
-            // 
-            // tabPageAbout
-            // 
-            this.tabPageAbout.Controls.Add(this.linkLabel1);
-            this.tabPageAbout.Controls.Add(this.label10);
-            this.tabPageAbout.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAbout.Name = "tabPageAbout";
-            this.tabPageAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAbout.Size = new System.Drawing.Size(568, 371);
-            this.tabPageAbout.TabIndex = 3;
-            this.tabPageAbout.Text = "关于";
-            this.tabPageAbout.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("宋体", 12F);
-            this.label10.Location = new System.Drawing.Point(20, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(248, 64);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "关于 每日壁纸\r\n版本: V1.0.0\r\n作者: 潘某人-AnonymousPan\r\nE-mail: pansichen666@gmail.com";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("宋体", 12F);
-            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(8, 46);
-            this.linkLabel1.Location = new System.Drawing.Point(23, 105);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(451, 24);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Github: https://github.com/AnonymousPan/DailyWallpaper";
-            this.linkLabel1.UseCompatibleTextRendering = true;
             // 
             // SettingsForm
             // 
@@ -889,6 +926,9 @@ namespace DailyWallpaper
         private System.Windows.Forms.TabPage tabPageAbout;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnClearLastWallpaperInfo;
+        private System.Windows.Forms.Button btnForceUpdate;
+        private System.Windows.Forms.Button btnInstall2;
     }
 }
 
